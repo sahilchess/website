@@ -34,12 +34,8 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Stage Pages site
-        run: |
-          rm -rf site
-          mkdir -p site
-          cp index.html site/index.html
-          cp -R docs site/docs
+      - name: Stage docs
+        run: cp -R docs dist/docs
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
