@@ -1,22 +1,20 @@
 import PageHeader from '../components/PageHeader'
+import { notFoundPageData } from '../data/pages/notFound'
 
 export default function NotFoundPage() {
   return (
     <>
       <PageHeader
-        description="That page does not exist, but you can jump back to the main site from here."
-        eyebrow="lost"
+        description={notFoundPageData.description}
+        eyebrow={notFoundPageData.eyebrow}
         slim
-        title="lost page"
+        title={notFoundPageData.title}
       />
 
       <section className="section-block">
         <article className="panel spotlight-panel text-center-panel">
-          <h3>Nothing here</h3>
-          <p>
-            The link you opened does not match one of the site pages. Go back to
-            the home page and choose a section from the navigation.
-          </p>
+          <h3>{notFoundPageData.heading}</h3>
+          <p>{notFoundPageData.message}</p>
         </article>
       </section>
     </>

@@ -1,101 +1,57 @@
 import PageHeader from '../components/PageHeader'
-import { aboutLanguageBadges } from '../data/siteContent'
+import { aboutPageData } from '../data/pages/about'
+
+function renderAboutBlock(block, index) {
+  if (block.type === 'paragraph') {
+    return <p key={index}>{block.text}</p>
+  }
+
+  if (block.type === 'subheading') {
+    return <h4 key={index}>{block.text}</h4>
+  }
+
+  if (block.type === 'badges') {
+    return (
+      <ul className='tag-list' key={index}>
+        {block.items.map((language) => (
+          <li className='language-badge' key={language.label}>
+            <span className='language-signature'>{language.signature}</span>
+            <span className='language-name'>{language.label}</span>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  if (block.type === 'list') {
+    return (
+      <ul className={block.className} key={index}>
+        {block.items.map((item) => <li key={item}>{item}</li>)}
+      </ul>
+    )
+  }
+
+  return null
+}
 
 export default function AboutPage() {
   return (
     <>
-      {/* About stays in the router even though it is hidden from the sidebar. */}
       <PageHeader
-        description="A short writing-style page for background, interests, and long-term goals."
-        eyebrow="about"
+        description={aboutPageData.description}
+        eyebrow={aboutPageData.eyebrow}
         slim
-        title="about"
+        title={aboutPageData.title}
       />
 
       <section className="section-block">
-        {/* The about content is split into panels for easier reading. */}
         <div className="panel-grid about-grid">
-          <article className="panel">
-            {/* Background summary. */}
-            <h3>Background</h3>
-            <p>
-              I am a student from Georgia with a strong interest in robotics,
-              programming, and technical problem solving.
-            </p>
-            <p>
-              My VEX IQ team has been very successful, and in my second year we
-              qualified for the VEX IQ Robotics World Championship. That
-              experience helped me grow by working with technical teams from
-              around the world and earning the Innovative Award at the
-              championship. I plan to compete in FRC to deepen my skills in
-              design, programming, and engineering collaboration. I also compete
-              in FBLA Speaking Events and the Optimist Oratorical, where I have
-              earned Top 3 awards at the state and national level.
-            </p>
-            <p>
-              I am part of Hack Club, where I have built many projects that
-              strengthen my interest in using technology to create meaningful
-              solutions.
-            </p>
-          </article>
-
-          <article className="panel">
-            {/* Interests and skill notes. */}
-            <h3>Education and Interests</h3>
-            <p>
-              I am a high school student with a strong interest in engineering,
-              programming, and technical communication.
-            </p>
-
-            <h4>Hobbies</h4>
-            <p>
-              Chess, percussion, reading, writing, sketching, photography,
-              visual design, and academic olympiads.
-            </p>
-
-            <h4>Programming Languages Known</h4>
-            <ul className="tag-list">
-              {aboutLanguageBadges.map((language) => (
-                <li className="language-badge" key={language.label}>
-                  <span className="language-signature">{language.signature}</span>
-                  <span className="language-name">{language.label}</span>
-                </li>
-              ))}
-            </ul>
-
-            <h4>Long-Term Goals</h4>
-            <ul className="feature-list">
-              <li>Build a startup that solves a real technical problem</li>
-              <li>Attend an Ivy League university</li>
-              <li>Keep improving through robotics, coding, and olympiads</li>
-            </ul>
-          </article>
-
-          <article className="panel">
-            {/* Longer-term direction and goals. */}
-            <h3>Goals</h3>
-            <p>
-              I want to keep growing as a technical leader by competing in FRC,
-              strengthening my programming and engineering skills, building
-              startup ideas, and learning from ambitious people who work on hard
-              problems.
-            </p>
-            <ul className="feature-list">
-              <li>Build a startup around a real technical problem</li>
-              <li>Earn admission to an Ivy League university</li>
-              <li>Keep developing advanced robotics and software skills</li>
-            </ul>
-          </article>
-
-          <article className="panel">
-            {/* Short personal philosophy section. */}
-            <h3>Olympiad Mindset</h3>
-            <p>
-              I like olympiads because they reward deep thinking, precision, and
-              consistent effort. They match the same kind of focus I enjoy in
-              robotics, coding, and speaking events.
-            </p>
-          </article>
+          {aboutPageData.sections.map((section) => (
+            <article className='panel' key={section.title}>
+              <h3>{section.title}</h3>
+              {section.blocks.map(renderAboutBlock)}
+            </article>
+          ))}
         </div>
       </section>
     </>

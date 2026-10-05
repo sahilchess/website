@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react'
 import SiteNav from './components/SiteNav'
+import { pageTitles } from './data/pages/metadata'
 import {
   AboutPage,
   HomePage,
   NotFoundPage,
   ProjectsPage,
   FindMePage,
+  BlogPage,
+  BlogPostPage,
 } from './pages'
 
 // Keep the about route available even though it is hidden from the sidebar.
@@ -14,18 +17,18 @@ const pageMap = {
   about: AboutPage,
   projects: ProjectsPage,
   'find-me': FindMePage,
-}
-
-const pageTitles = {
-  home: 'Home | Sahil Dasari',
-  about: 'About | Sahil Dasari',
-  projects: 'Projects | Sahil Dasari',
-  'find-me': 'Find Me | Sahil Dasari',
+  blog: BlogPage,
+  'blog-post': BlogPostPage,
 }
 
 function getPageFromPath() {
-  const [page] = window.location.pathname.split('/').filter(Boolean)
-  return page || 'home'
+  const [first, second] = window.location.pathname.split('/').filter(Boolean)
+
+  if (first === 'blog' && second) {
+    return 'blog-post'
+  }
+
+  return first || 'home'
 }
 
 export default function App() {

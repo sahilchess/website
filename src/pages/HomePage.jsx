@@ -1,4 +1,5 @@
 import PageHeader from '../components/PageHeader'
+import { homePageData } from '../data/pages/home'
 
 export default function HomePage() {
   // Home page keeps the layout simple and centered.
@@ -13,8 +14,8 @@ export default function HomePage() {
           { label: 'Find me', href: '/find-me', variant: 'secondary' },
         ]}
         */
-        description="I'm a student and maker that will take over the world with hardware."
-        title="sahil dasari"
+        description={homePageData.description}
+        title={homePageData.title}
       />
     </div>
   )
